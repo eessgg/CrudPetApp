@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors());
 app.use(helmet());
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
 
@@ -23,11 +23,10 @@ mongoose.connect(database.MONGO_URI, {
 .catch(err => console.log(err));
 
 
-
-import appRoutes from './routes/auth_route.js';
+import authRoutes from './routes/auth_route.js';
 
 // /api/users/register
-app.use('/api', appRoutes);
+app.use('/api', authRoutes);
 
 
 const PORT = process.env.PORT || 3001;
