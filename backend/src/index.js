@@ -24,9 +24,16 @@ mongoose.connect(database.MONGO_URI, {
 
 
 import authRoutes from './routes/auth_route.js';
+import userRoutes from './routes/user_route.js';
+import categoryRoutes from './routes/category_route.js';
+import petRoutes from './routes/pet_route.js';
 
 // /api/users/register
 app.use('/api', authRoutes);
+app.use('/api', userRoutes);
+app.use('/api', categoryRoutes);
+app.use('/api', petRoutes); //products
+
 
 
 const PORT = process.env.PORT || 3001;

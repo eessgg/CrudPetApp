@@ -2,15 +2,6 @@ import User from '../models/user_model.js';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';
 
-const getAll = (req, res) => {
-  User.find({}, (err, data) => {
-    if(err) {
-      return res.status(400).json({error: 'não encontrado.'})
-    }
-    res.json(data)
-  })
-}
-
 const register = async (req, res) => {
   try {
     let {name, email, password} = req.body;
@@ -69,13 +60,17 @@ const login = (req, res) => {
   })
 }
 
-
 function requireSignin() {
   return expressJwt({
-    secret: secretKey.JWT_SECRET,
+    secret: process.env.JWT_SECRET,
     algorithms: ["HS256"],
     userProperty: "auth",
   });
+}
+
+const logout = (req, res) => {
+  res.clearCookie('t');
+  res.json({ message: 'Logout concluído.' })
 }
 
 
@@ -100,5 +95,5 @@ const isAdmin = (req, res, next) => {
 };
 
 export {
-  register, login, requireSignin, isAuth, isAdmin, getAll
+  register, login, requireSignin, isAuth, isAdmin, logout
 }
