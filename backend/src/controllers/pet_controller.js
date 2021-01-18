@@ -15,10 +15,16 @@ const petById = (req, res, next, id) => {
   })
 }
 
-const listAll = async (req, res) => {
-  const pets = req.pet;
-
-  res.status(200).json({ pets });
+const listAll = (req, res) => {
+  Pet.find().select('-photo').exec((err, pets) => {
+      if (err) {
+          return res.status(400).json({
+              error: 'pets not found'
+          });
+      }
+      console.log(pets)
+      res.json(pets);
+  });
 }
 
 const single = (req, res) => {

@@ -1,6 +1,6 @@
 import User from '../models/user_model.js';
 
-const getAll = (req, res) => {
+const allUsers = (req, res) => {
   User.find({}, (err, data) => {
     if(err) {
       return res.status(400).json({error: 'não encontrado.'})
@@ -23,7 +23,10 @@ const userById = (req, res, next, id) => {
   });
 };
 
+const singleUser = (req,res) => {
+  return res.json(req.profile);
+}
 
 export {
-  getAll, userById
+  allUsers, userById, singleUser
 }

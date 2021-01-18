@@ -73,7 +73,6 @@ const logout = (req, res) => {
   res.json({ message: 'Logout concluído.' })
 }
 
-
 const isAuth = (req, res, next) => {
   let user = req.profile && req.auth && req.profile._id == req.auth._id;
   if (!user) {
@@ -85,12 +84,11 @@ const isAuth = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  if (req.profile.role === 0) {
+  if (req.profile.permissionLevel === 0) {
       return res.status(403).json({
           error: 'Admin resourse! Access denied'
       });
   }
-  if(!user.authenticate(password))
   next();
 };
 

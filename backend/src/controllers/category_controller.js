@@ -12,8 +12,14 @@ const categoryById = (req, res, next, id) => {
   })
 }
 
-const list = (req, res) => {
-  return res.json(req.pet);
+const allCategories = (req, res) => {
+  // return res.json(req.category);
+  Category.find({}, (err, data) => {
+    if(err) {
+      return res.status(400).json({error: 'não encontrado.'})
+    }
+    res.json(data)
+  })
 }
 
 const create = (req, res) => {  
@@ -32,5 +38,5 @@ const create = (req, res) => {
 
 
 export {
-  categoryById, list, create, 
+  categoryById, allCategories, create, 
 } 
